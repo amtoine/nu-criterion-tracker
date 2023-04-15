@@ -1,0 +1,42 @@
+name: Run criterion on all projects
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '* 0 * * *'
+
+defaults:
+  run:
+    shell: nu {0}
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions-rust-lang/setup-rust-toolchain@v1.4.4
+
+      - uses: hustcer/setup-nu@main
+        with:
+          version: '*'
+
+      - name: System dependencies
+        run: |
+          cargo install cargo-criterion
+          pip install matplotlib
+
+      - name: Configure git
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+
+      - name: Run criterion on all projects
+        run: ./run-criterion.nu
+
+      - name: Commit the change
+        run: |
+          git add .
+          git commit -m $"run criterion on all projects (char lparen)(date now | date format "%Y-%m-%dT%H:%M:%S")(char rparen)"
+          git push
