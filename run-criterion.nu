@@ -1,3 +1,5 @@
+#!/usr/bin/env nu
+
 def main [] {
     for repo in (open projects.nuon) {
         print $"(ansi red)running criterion for (ansi red_bold)($repo)(ansi reset)"
