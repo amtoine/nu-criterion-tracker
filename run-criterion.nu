@@ -10,6 +10,8 @@ def main [] {
             path: $repo
         } | url join) $path
 
+        mkdir $repo
+
         cargo criterion --manifest-path ({
             parent: $path
             stem: "Cargo"
