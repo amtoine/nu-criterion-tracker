@@ -1,3 +1,5 @@
 [
-    "nushell/nushell"
+    [local remote];
+
+    [nushell/nushell https://github.com/nushell/nushell]
 ]
