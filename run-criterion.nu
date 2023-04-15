@@ -2,17 +2,13 @@
 
 def main [] {
     for repo in (open projects.nuon) {
-        print $"(ansi red)running criterion for (ansi red_bold)($repo)(ansi reset)"
+        print $"(ansi red)running criterion for (ansi red_bold)($repo.local)(ansi reset)"
 
-        let path = (["repos" $repo] | path join)
+        let path = (["repos" $repo.local] | path join)
 
-        git clone ({
-            scheme: "http"
-            host: "github.com"
-            path: $repo
-        } | url join) $path
+        git clone $repo.remote $path
 
-        mkdir $repo
+        mkdir $repo.local
 
         cargo criterion --manifest-path ({
             parent: $path
@@ -22,7 +18,7 @@ def main [] {
         | where reason == "benchmark-complete" | reject reason
         | to nuon --raw
         | save ({
-            parent: $repo
+            parent: $repo.local
             stem: (date now | date format "%Y-%m-%dT%H:%M:%S")
             extension: "nuon"
         } | path join)
