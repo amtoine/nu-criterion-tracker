@@ -1,6 +1,6 @@
 def main [] {
     for repo in (open projects.nuon) {
-        print -n $"(ansi erase_line)updating issue tracker of ($repo)\r"
+        print $"(ansi red)running criterion for (ansi red_bold)($repo)(ansi reset)"
 
         let path = (["repos" $repo] | path join)
 
