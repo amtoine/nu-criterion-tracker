@@ -3,7 +3,7 @@ name: Run criterion on all projects
 on:
   workflow_dispatch:
   schedule:
-    - cron: '* 0 * * *'
+    - cron: '0 0 * * 7'
 
 defaults:
   run:
