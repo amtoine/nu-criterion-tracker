@@ -18,7 +18,7 @@ def main [] {
             parent: $path
             stem: "Cargo"
             extension: "toml"
-        } | path join) --output-format verbose --message-format json | lines | each { from json }
+        } | path join) --output-format verbose --message-format json | lines | each {|| from json }
         | where reason == "benchmark-complete" | reject reason
         | to nuon --raw
         | save ({
