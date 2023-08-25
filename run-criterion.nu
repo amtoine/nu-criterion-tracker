@@ -19,7 +19,7 @@ def main [] {
         | to nuon --raw
         | save ({
             parent: $repo.local
-            stem: (date now | date format "%Y-%m-%dT%H:%M:%S")
+            stem: (date now | format date "%Y-%m-%dT%H:%M:%S")
             extension: "nuon"
         } | path join)
     }
